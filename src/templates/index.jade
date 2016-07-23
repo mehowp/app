@@ -1,0 +1,10 @@
+html(lang="pl" ng-app="MyApp")
+  head
+    title
+    link(href='/main.css', rel='stylesheet')
+    script(src='./bundle.js')
+    base(href='/')
+  body
+    header(ui-view="header")
+    main(ui-view="")
+    footer(ui-view="footer")
