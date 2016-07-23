@@ -1,10 +1,22 @@
-html(lang="pl" ng-app="MyApp")
+!!! 5
+html(class='no-js' ng-app="MyApp")
   head
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+
     title
+
+    meta(name='description', content='')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    
     link(href='/main.css', rel='stylesheet')
+    
     script(src='./bundle.js')
     base(href='/')
+    
   body
     header(ui-view="header")
+    
     main(ui-view="")
+    
     footer(ui-view="footer")
