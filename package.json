@@ -3,11 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "main": "node src/js/express.js",
-  "scripts": {
-    "test": "node src/js/express.js"
-  },
-  "author": "",
-  "license": "ISC",
   "devDependencies": {
     "angular": "^1.5.8",
     "angular-animate": "^1.5.8",
