@@ -13,7 +13,8 @@ var gulp = require('gulp'),
         images: './src/images/**/*.*',
         jade: './src/templates/**/*.jade',
         scripts: './src/js/**/*.js'
-      }
+      },
+      config = require('./backend/lib/config');
 
 // Browserify task
 gulp.task('browserify', function() {
@@ -70,4 +71,5 @@ gulp.task('default', function() {
    console.log('4. templates: '+ chalk.bold.green(paths.jade));
     gulp.watch(paths.jade, ['jade']);
     console.log('---------------------------------');
+    console.log(chalk.red('App listening at'+ config.port))
 });

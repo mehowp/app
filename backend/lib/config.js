@@ -5,5 +5,9 @@ module.exports = {
         js: './public/assets/js',
         css: './public/assets/css',
         images: './public/assets/images'
+    },
+    db: {
+      host: '0.0.0.0:27017',
+      name: 'project1'
     }
 }

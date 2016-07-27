@@ -18,6 +18,7 @@
     "gulp-browserify": "^0.5.1",
     "gulp-imagemin": "^3.0.2",
     "gulp-jade": "^1.1.0",
+    "gulp-load-plugins": "^1.2.4",
     "gulp-pug": "^3.0.3",
     "gulp-sass": "^2.3.2",
     "gulp-uglify": "^1.5.4",
@@ -25,7 +26,14 @@
     "method-override": "^2.3.6",
     "mongoose": "^4.5.5",
     "morgan": "^1.7.0",
+    "socket.io": "^1.4.8",
     "streamify": "^0.2.6",
     "vinyl-source-stream": "^1.1.0"
+  },
+  "browser": {
+    "socketio-client": "./node_modules/socket.io-client/socket.io.js",
+    "controllers": "./src/js/controllers/_.js",
+    "services": "./src/js/services/_.js",
+    "directives": "./src/js/directives/_.js"
   }
 }

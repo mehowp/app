@@ -1,9 +1,10 @@
-var angular = require('angular');
+const angular = require('angular');
 var $ = window.jQuery = require('jquery');
+const socket = require('socketio-client')();
 
-var controllers = require('./controllers/_'),
-    services = require('./services/_'),
-    directives = require('./directives/_');
+var controllers = require('controllers'),
+    services = require('services'),
+    directives = require('directives');
 
 var uirouter = require('angular-ui-router')
     animate = require('angular-animate'),
