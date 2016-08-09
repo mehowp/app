@@ -1,22 +1,18 @@
-!!! 5
-html(class='no-js' ng-app="MyApp")
-  head
-    meta(charset='utf-8')
-    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+html(class='no-js' ng-app="MyApp" ng-cloak)
+    head
+        base(href='/')
+        meta(charset='utf-8')
+        meta(http-equiv='X-UA-Compatible', content='IE=edge')
+        
+        link(href='assets/css/main.css', rel='stylesheet')
+        
+        title
 
-    title
-
-    meta(name='description', content='')
-    meta(name='viewport', content='width=device-width, initial-scale=1')
-    
-    link(href='/main.css', rel='stylesheet')
-    
-    script(src='./bundle.js')
-    base(href='/')
-    
-  body
-    header(ui-view="header")
-    
-    main(ui-view="")
-    
-    footer(ui-view="footer")
+        meta(name='description', content='')
+        meta(name='viewport', content='width=device-width, initial-scale=1')
+        
+        script(type='text/javascript' src="assets/js/main.js" defer)
+    body(class="is-{{$main.currentState}}")
+        main(ui-view="").main-view
+  
+  

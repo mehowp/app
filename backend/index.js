@@ -19,12 +19,12 @@ const io = require('socket.io')(server);
 
 
 //database
-mongoose.connect('mongodb://'+config.db.host+'/'+config.db.name);
+mongoose.connect('mongodb://' + config.db.host + '/' + config.db.name);
 
 // Bootstrap models
 fs.readdirSync(models)
-  .filter(file => ~file.search(/^[^\.].*\.js$/))
-  .forEach(file => require(join(models, file)));
+    .filter(file => ~file.search(/^[^\.].*\.js$/))
+    .forEach(file => require(join(models, file)));
 
 app.set('view engine', 'jade');
 
@@ -32,21 +32,20 @@ app.set('view engine', 'jade');
 app.use(express.static(config.templates))
 
 // css and js man files
-app.use('/bundle.js', express.static(config.assets.js + '/bundle.js'));
-app.use('/main.css', express.static(config.assets.css + '/index.css'));
+app.use('/assets', express.static('./public/src/'));
 
-// assets
-app.use('/assets/js', express.static(config.assets.js));
-app.use('/assets/css', express.static(config.assets.css));
-app.use('/assets/images', express.static(config.assets.images));
+app.use('/maps', express.static('./public/maps'));
+
 
 app.all('/*', function(req, res, next) {
     // Just send the index.html for other files to support HTML5Mode
-    res.sendFile('index.html', { root: './public/views' });
+    res.sendFile('index.html', {
+        root: './public/views'
+    });
 });
 
 // routes
 app.use(require('./lib/routes.js'));
 
 //start server
-server.listen(config.port);
+server.listen(config.port, "0.0.0.0");

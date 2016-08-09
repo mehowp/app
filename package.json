@@ -6,34 +6,38 @@
   "devDependencies": {
     "angular": "^1.5.8",
     "angular-animate": "^1.5.8",
+    "angular-materialize": "^0.1.9",
     "angular-resource": "^1.5.8",
     "angular-ui-router": "^0.3.1",
+    "babel-cli": "^6.11.4",
+    "babel-preset-es2015": "^6.13.2",
+    "babelify": "^7.3.0",
     "body-parser": "^1.15.2",
-    "browserify": "^13.0.1",
+    "browserify": "^13.1.0",
     "chalk": "^1.1.3",
+    "cssnano": "^3.7.3",
     "express": "^4.14.0",
     "fs": "0.0.2",
     "gulp": "^3.9.1",
-    "gulp-autoprefixer": "^3.1.0",
-    "gulp-browserify": "^0.5.1",
-    "gulp-imagemin": "^3.0.2",
-    "gulp-jade": "^1.1.0",
-    "gulp-load-plugins": "^1.2.4",
-    "gulp-pug": "^3.0.3",
-    "gulp-sass": "^2.3.2",
-    "gulp-uglify": "^1.5.4",
     "jquery": "^3.1.0",
+    "materialize-css": "^0.97.7",
     "method-override": "^2.3.6",
     "mongoose": "^4.5.5",
     "morgan": "^1.7.0",
+    "postcss-nested": "^1.0.0",
+    "postcss-scss": "^0.1.9",
+    "precss": "^1.4.0",
+    "require-dir": "^0.3.0",
     "socket.io": "^1.4.8",
     "streamify": "^0.2.6",
-    "vinyl-source-stream": "^1.1.0"
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0",
+    "watchify": "^3.7.0"
   },
   "browser": {
-    "socketio-client": "./node_modules/socket.io-client/socket.io.js",
-    "controllers": "./src/js/controllers/_.js",
-    "services": "./src/js/services/_.js",
-    "directives": "./src/js/directives/_.js"
+    "socketio-client": "./node_modules/socket.io-client/socket.io.js"
+  },
+  "dependencies": {
+    "gulp-nodemon": "^2.1.0"
   }
 }
