@@ -4,12 +4,13 @@ var directory = __dirname;
 var fs = require('fs');
 
 gulp.task('server', function() {;
-    nodemon({
-            script: 'server.js',
-            ext: 'html js',
-            ignore: ['ignored.js']
+   var stream = nodemon({
+                 script: 'server.js' // run ES5 code 
+               , watch: 'backend' // watch ES2015 code 
+               , tasks: [] // compile synchronously onChange 
         })
         .on('restart', function() {
             console.log('restarted!')
         })
+        return stream;
 })

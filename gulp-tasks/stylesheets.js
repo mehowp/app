@@ -13,6 +13,6 @@ gulp.task('stylesheets', function() {
         .pipe(sass().on('error', sass.logError))
         .pipe(sourcemaps.init())
         .pipe(postcss(processors))
-        .pipe(sourcemaps.write('./maps'))
+        .pipe(sourcemaps.write('../maps'))
         .pipe(gulp.dest('./public/src/css'));
 })

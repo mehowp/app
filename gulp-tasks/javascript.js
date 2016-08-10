@@ -2,37 +2,38 @@ var gulp = require('gulp'),
     sourcemaps = require('gulp-sourcemaps'),
     source = require('vinyl-source-stream'),
     buffer = require('vinyl-buffer'),
-    browserify = require('browserify'),
-    watchify = require('watchify'),
-    babel = require('babelify'),
-    nodemon = require('nodemon');
+    babel = require('gulp-babel'),
+    concat = require('gulp-concat'),
+    minify = require('gulp-babel-minify'),
+    rename = require('gulp-rename'),
+    browserify = require('gulp-browserify'),
+    uglifyjs = require('gulp-uglify'),
+    source = require('vinyl-source-stream'),
+    buffer = require('vinyl-buffer');
 
-
-gulp.task('javascript', function() {
-    var bundler = watchify(browserify('./src/js/main.js', {
-        debug: true
-    }).transform(babel));
-
-    function rebundle() {
-        bundler.bundle()
-            .on('error', function(err) {
-                console.error(err);
-                this.emit('end');
-            })
-            .pipe(source('./src/js/main.js'))
-            .pipe(buffer())
-            .pipe(sourcemaps.init({
-                loadMaps: true
-            }))
-            .pipe(sourcemaps.write('./maps'))
-            .pipe(gulp.dest('./public'));
-    }
-
-
-    bundler.on('update', function() {
-        console.log('-> bundling...');
-        rebundle();
-    });
-
-    rebundle();
+gulp.task('bundle', function() {
+    var opts = {};
+    return gulp.src('src/js/**/*.js')
+        .pipe(sourcemaps.init())
+        .pipe(babel())
+        .pipe(concat('bundle.js'))
+        .pipe(browserify({
+            insertGlobals: true,
+            debug: true
+        }))
+        .pipe(sourcemaps.write('../maps'))
+        // .pipe(minify(opts))
+        .pipe(gulp.dest('./public/src/js'));
 })
+
+gulp.task('min', function() {
+    return gulp.src('./public/src/js/bundle.js')
+         .pipe(uglifyjs().on('error', function(e){
+               console.log(e);
+          }))
+        .pipe(rename('bundle.min.js'))
+        .pipe(gulp.dest('./public/src/js'));
+})
+
+
+gulp.task('javascript', ['bundle', 'min'])
