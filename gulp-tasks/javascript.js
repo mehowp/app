@@ -4,12 +4,9 @@ var gulp = require('gulp'),
     buffer = require('vinyl-buffer'),
     babel = require('gulp-babel'),
     concat = require('gulp-concat'),
-    minify = require('gulp-babel-minify'),
     rename = require('gulp-rename'),
     browserify = require('gulp-browserify'),
-    uglifyjs = require('gulp-uglify'),
-    source = require('vinyl-source-stream'),
-    buffer = require('vinyl-buffer');
+    uglifyjs = require('gulp-uglify');
 
 gulp.task('bundle', function() {
     var opts = {};
