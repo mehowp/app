@@ -8,7 +8,9 @@ module.exports = {
         images: '/public/assets/images'
     },
     db: {
-      host: '0.0.0.0:27017',
-      name: 'project1'
+      host: 'localhost',
+      name: 'project1',
+      user: 'mehow',
+      password: 'qwertyuiop'
     }
 }

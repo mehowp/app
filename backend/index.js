@@ -5,47 +5,33 @@ const chalk = require('chalk'); // Color output for console
 const fs = require('fs');
 const join = require('path').join;
 
-// config and database
-const config = require('./lib/config');
-const models = join(__dirname, 'bin/models');
-
 // server side
 const express = require('express');
 const mongoose = require('mongoose'); // MongoDB driver
 
-const app = express(); // Express Framework
+global.app = express(); // Express Framework
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 
+// config and database
+global.config = require('./bin/config');
 
-//database
-mongoose.connect('mongodb://' + config.db.host + '/' + config.db.name);
-
-// Bootstrap models
-fs.readdirSync(models)
-    .filter(file => ~file.search(/^[^\.].*\.js$/))
-    .forEach(file => require(join(models, file)));
-
+/* definitevly this section shouldn't be touchable */
+app.set('models', require('./bin/models'));
 app.set('view engine', 'jade');
-
-// templates
 app.use(express.static(config.templates))
+app.use(require('./bin/controllers'));
 
-// css and js man files
 app.use('/assets', express.static('./public/src/'));
-
 app.use('/maps', express.static('./public/maps'));
 
-
-app.all('/*', function(req, res, next) {
+/* simple equivalent htaccess for angular */
+app.all('/*', (req, res, next) => {
     // Just send the index.html for other files to support HTML5Mode
     res.sendFile('index.html', {
         root: './public/views'
     });
 });
-
-// routes
-app.use(require('./lib/routes.js'));
 
 //start server
 server.listen(config.port, "0.0.0.0");

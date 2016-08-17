@@ -1,2 +1,4 @@
+.babelrc
 public
 node_modules
+.eslintrc
