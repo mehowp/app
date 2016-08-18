@@ -1,18 +1,16 @@
 html(class='no-js' ng-cloak)
     head
         base(href='/')
+
         meta(charset='utf-8')
-        meta(http-equiv='X-UA-Compatible', content='IE=edge')
-        
-        link(href='assets/css/main.css', rel='stylesheet')
-        
-        title
+        meta(http-equiv='X-UA-Compatible', content='IE=edge')  
 
         meta(name='description', content='')
         meta(name='viewport', content='width=device-width, initial-scale=1')
-        
-        script(type='text/javascript' src="assets/js/bundle.min.js" defer)
-    body(class="is-{{$main.currentState}}")
-        main(ui-view="").main-view
-  
-  
+
+        title my first app
+
+        link(rel='stylesheet' data-ng-href="assets/css/{{style}}.css")
+        script(type='text/javascript' src="assets/js/bundle.js" defer)
+
+    body(ui-view="")

@@ -1,8 +1,8 @@
 // in models/User
 let model = (sequelize, DataTypes) => {
     return database.define('User', {
-        login: DataTypes.STRING,
-    }, {
+        login: DataTypes.STRING
+    },{
         instanceMethods: {
             Auth: function() {
                 // how to implement this method ?

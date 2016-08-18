@@ -17,7 +17,7 @@ gulp.task('lint', () => {
 
 gulp.task('bundle', ['lint'], function() {
     var opts = {};
-    return gulp.src('src/js/**/*.js')
+    return gulp.src(['src/js/main.js', 'src/js/**/*.js'])
         .pipe(sourcemaps.init())
         .pipe(babel())
         .pipe(concat('bundle.js'))

@@ -7,7 +7,6 @@ const join = require('path').join;
 
 // server side
 const express = require('express');
-const mongoose = require('mongoose'); // MongoDB driver
 
 global.app = express(); // Express Framework
 const server = require('http').createServer(app);
@@ -34,4 +33,4 @@ app.all('/*', (req, res, next) => {
 });
 
 //start server
-server.listen(config.port, "0.0.0.0");
+server.listen(config.port, config.ip);

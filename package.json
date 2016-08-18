@@ -1,10 +1,11 @@
 {
-  "name": "nodejs",
+  "author":"mehowp",
+  "name": "supreme",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
   "scripts": {
-    "dev": "gulp"
+    "start": "gulp"
   },
   "devDependencies": {
     "angular": "^1.5.8",
@@ -22,10 +23,16 @@
     "express": "^4.14.0",
     "fs": "0.0.2",
     "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^3.1.1",
     "gulp-babel": "^6.1.2",
     "gulp-browserify": "^0.5.1",
+    "gulp-concat": "^2.6.0",
     "gulp-eslint": "^3.0.1",
+    "gulp-postcss": "^6.1.1",
+    "gulp-pug": "^3.0.4",
     "gulp-rename": "^1.2.2",
+    "gulp-sass": "^2.3.2",
+    "gulp-sourcemaps": "^1.6.0",
     "gulp-uglify": "^2.0.0",
     "jquery": "^3.1.0",
     "method-override": "^2.3.6",
@@ -42,6 +49,7 @@
   "dependencies": {
     "gulp-nodemon": "^2.1.0",
     "mysql": "^2.11.1",
-    "sequelize": "^3.24.0"
+    "sequelize": "^3.24.0",
+    "sequelize-cli": "^2.4.0"
   }
 }
