@@ -3,12 +3,11 @@ const runnable = ($stateParams, $state, $timeout, $rootScope) => {
 
     $rootScope.$on('$viewContentLoaded',
         function(event, viewConfig) {
-        	var state = $state.current.name.split('.')[1];
-        	if(!state)
-        	{
-        		state = 'main';
-        	}
-        	$rootScope.style = state;
+            var state = $state.current.name.split('.')[1];
+            if (!state) {
+                state = 'main';
+            }
+            $rootScope.style = state;
 
         });
 
