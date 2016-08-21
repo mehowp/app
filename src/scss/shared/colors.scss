@@ -1,0 +1,14 @@
+@each $palleteColor, $color in $pallete {
+    .col-#{$palleteColor} {
+        color: $color;
+        &-darken {
+            color: darken($color, 20% );
+        }
+    }
+    .bg-col-#{$palleteColor} {
+        background-color: $color;
+        &-darken {
+            background-color: darken($color, 20% );
+        }
+    }
+}

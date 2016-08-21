@@ -1,0 +1,175 @@
+input,
+label {
+width: 100%;
+display: flex;
+}
+textarea {
+    width: 100%;
+    height: auto;
+    padding: 0.5em;
+    font-size: 1em;
+    margin-top: 1em;
+    font-family: inherit;
+    font-weight: inherit;
+    border: 1px solid rgba(0,0,0,0.2);
+}
+*::after {
+    color: darken($ghost, 20%);
+}
+.select {
+    flex-direction: column;
+    flex-grow: 1;
+    position: relative;
+    & > a {
+        border: 1px solid rgba(0,0,0,0.2);
+        margin-top: 1em;
+        margin-bottom: 0;
+        padding-left: 0.5em;
+        height: $button-height;
+        line-height: $button-height;
+        color: darken($ghost, 20%);
+        cursor: pointer;
+        &::after {
+            content: '\f078';
+            float: right;
+            margin-right: 1em;
+            font-family: FontAwesome;
+        }
+    }
+    .dropdown {
+        box-shadow: -2px 2px 7px 0  rgba(0,0,0,0.2);
+        height: 0;
+        top: $button-height * 1.5;
+        padding: 0;
+        overflow-y: scroll;
+        border: 1px solid rgba(0,0,0,0.2);
+        border-top: 0;
+        border-bottom: 0;
+        margin-top: 0;
+        margin-bottom: 0;
+        opacity: 0;
+        li {
+            color: darken($ghost, 5%);
+            list-style-type: none;
+            height: $button-height;
+            line-height: $button-height;
+            padding-left: 1em;
+            cursor: pointer;
+
+            &:nth-child(1n) {
+                border-bottom: 1px solid rgba(0,0,0,0.1);
+            }
+            &:last-child {
+                border-bottom: 0;
+            }
+        }
+        max-height: $button-height * 3.1;
+    }
+}
+.select > .active + .dropdown {
+    height: $button-height * 3.1;
+    border-bottom: 1px solid rgba(0,0,0,0.2);
+    opacity: 0.95;
+}
+.selected {
+    background: rgba(0,0,0,0.06);
+    &::after {
+        content: '\f00c';
+        float: left;
+        margin-right: 1em;
+        font-family: FontAwesome;
+        color: $green;
+    }
+}
+input {
+    color: $button-color;
+    height: $button-height;
+    font-size: 1em;
+    flex-direction: row;
+    flex-grow: 1;
+    width: 100%;
+    margin-top: 1em;
+    padding: 0.5em;
+    text-align: center;
+    text-transform: uppercase;
+    align-items: center;
+    justify-content: center;
+    border-color: transparent;
+    text-align: left;
+    text-transform: none;
+    border: 1px solid rgba(0,0,0,0.2);
+    &:active,
+    &:focus {
+        outline-color: rgba(0,0,0,0.2);
+        outline-offset: -1px;
+        box-shadow: 0 0 10px -3px $button-color;
+    }
+}
+[disabled] {
+    color: rgba(0,0,0,0.2) !important;
+    opacity: 0.6;
+    cursor: not-allowed !important;
+}
+input[type="checkbox"] {
+    display: inherit;
+    width: auto;
+    margin: 0;
+    box-shadow: none !important;
+    margin-right: 0.5em;
+    float: left;
+}
+.btn {
+    text-transform: uppercase;
+    background: rgba(0,0,0,0.1);
+    text-align: center;
+    margin-top: 1em;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    min-height: $button-height * 1.1;
+}
+
+.select > a,
+button,
+input,
+select,
+textarea {
+    &:hover {
+        box-shadow: 0 0 10px -3px rgba(0,0,0,0.2);
+    }
+}
+/* Change Autocomplete styles in Chrome*/
+input:-webkit-autofill,
+input:-webkit-autofill:focus input:-webkit-autofill,
+input:-webkit-autofill:hover,
+select:-webkit-autofill,
+select:-webkit-autofill:focus,
+select:-webkit-autofill:hover,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover textarea:-webkit-autofill:focus {
+    border: 1px solid rgba(0,0,0,0.2);
+    -webkit-text-fill-color: $button-color;
+    -webkit-box-shadow: 0 0 20px -3px #000 outset;
+    transition: background-color 5000s ease-in-out 0s;
+}
+* {
+    transition: all 0.4s ease;
+}
+@mixin scrollbars($size, $foreground-color, $background-color: mix($foreground-color, white, 30%)) {
+    ::-webkit-scrollbar {
+        width: $size;
+        height: $size;
+    }
+    ::-webkit-scrollbar-thumb {
+        background: $foreground-color;
+    }
+    ::-webkit-scrollbar-track {
+        background: $background-color;
+    }
+    // For Internet Explorer
+    body {
+        scrollbar-face-color: $foreground-color;
+        scrollbar-track-color: $background-color;
+    }
+}
+@include scrollbars(.3em, rgba(0,0,0,0.3));

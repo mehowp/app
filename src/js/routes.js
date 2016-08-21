@@ -5,9 +5,12 @@ const routes = ($stateProvider, $locationProvider, $urlRouterProvider) => {
     //home
         .state('parent', {
             abstract: true,
-            template: '<ui-view/>',
+            template: '<ui-view ng-cloak class="ng-cloak" />',
             resolve: {
                 '': ($timeout, $rootScope, $state) => {
+                    if($rootScope.style){
+                      return true;
+                    }
                 }
             }
         })
@@ -18,7 +21,14 @@ const routes = ($stateProvider, $locationProvider, $urlRouterProvider) => {
 
         .state('parent.admin', {
             url: '/admin',
-            templateUrl: 'admin/dashboard/index.html'
+            templateUrl: 'admin/dashboard/index.html',
+            resolve: {
+                '': ($timeout, $rootScope, $state) => {
+                    if($rootScope.style){
+                      return true;
+                    }
+                }
+            }
         })
 
 }

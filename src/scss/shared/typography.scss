@@ -1,0 +1,45 @@
+@each $value in $fwRange {
+  @each $breakpoint, $size in $baseSizes {
+    .fw-#{$value} {
+          font-weight: $value;
+
+        &-#{$breakpoint} {
+          @include respond-to($breakpoint) {
+            font-weight: $value !important;
+          }
+        }
+    }
+  }
+}
+
+@for $value from 1 through 50 {
+@each $breakpoint, $size in $fontSizes {
+                  .fs-#{$value} {
+                        $baseFontSize: calc(#{$value} / 10);
+                        $finalFontSize: calc(#{$baseFontSize} * #{$size});
+                        font-size: $finalFontSize;
+
+                      &-#{$breakpoint} {
+                        @include respond-to($breakpoint) {
+                          $baseFontSize: calc(#{$value} / 10);
+                          $finalFontSize: calc(#{$baseFontSize} * #{$size});
+                          font-size: $finalFontSize !important;
+                        }
+                      }
+                  }
+
+                  .lh-#{$value} {
+                        $baseLineHeight: calc(#{$value} / 10);
+                        $finalLineHeight: calc(#{$baseLineHeight} * #{$size});
+                        line-height: $finalLineHeight;
+
+                      &-#{$breakpoint} {
+                        @include respond-to($breakpoint) {
+                          $baseLineHeight: calc(#{$value} / 10);
+                          $finalLineHeight: calc(#{$baseLineHeight} * #{$size});
+                          line-height: $finalLineHeight !important;
+                        }
+                      }
+                  }
+    }
+}

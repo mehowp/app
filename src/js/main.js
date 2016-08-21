@@ -9,7 +9,7 @@ window.jQuery = jQuery;
 global.app = angular.module('MyApp', [uirouter]);
 
 export
-default angular.element(document).ready(function() {
+default angular.element(document.querySelector('body')).ready(function() {
     angular.bootstrap(document, [app.name], {
         strictDi: true
     });

@@ -1,0 +1,51 @@
+/* colors */
+
+$pallete: ( white: #fff, black: #000, red: #d43862, green: #00a665, orange: #ff9100, blue: #008acd, ghost: rgb(129, 129, 129) );
+@function getColor($color) {
+     @each $colorName, $color in $pallete{
+        @return $color;
+    }
+}
+/* buttons */
+$button-height: 2em;
+$button-color: rgba(0,0,0,0.7);
+$ghost: rgb(129, 129, 129);
+$green: #00a665;
+/* grid variables */
+$columns: 12;
+$break-small: 320px;
+$break-medium: 768px;
+$break-large: 1024px;
+$break-extra: 1280px;
+
+/*margins, paddings, fonts */
+$properties: (m: 'margin', p: 'padding', b: 'border');
+$directions: (t: 'top', b: 'bottom', l: 'left', r: 'right', a: 'all');
+
+$baseSizes: ( s: 1.5vw, m: 0.7vw, l: 5px, x: 5px);
+$fontSizes: ( s: 4.7vw, m: 2.08vw, l: 16px, x: 16px );
+$range: (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
+$fwRange: (100, 200, 300, 400, 500, 600, 700, 800, 900);
+
+@mixin respond-to($media) {
+     @if $media == s{
+        @media (max-width: $break-medium) {
+             @content;
+        }
+    }
+    @else if $media == m {
+         @media (min-width: $break-medium) and (max-width: $break-large){
+            @content;
+        }
+    }
+    @else if $media == l {
+         @media (min-width: $break-large) and (max-width: $break-extra){
+            @content;
+        }
+    }
+    @else if $media == x {
+         @media (min-width: $break-extra){
+            @content;
+        }
+    }
+}

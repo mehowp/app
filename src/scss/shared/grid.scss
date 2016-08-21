@@ -1,0 +1,73 @@
+@mixin grid-row {
+    flex: 1;
+}
+
+@mixin row-basics {
+}
+
+@for $col from 1 through $columns {
+    /* without margin */
+    .w-#{$col} {
+        width: ((100 / $columns) * $col) * 1%;
+        @include row-basics;
+
+    }
+    /* with margin */
+    .c-#{$col} {
+        width: ((100 / $columns) * $col) * 1%;
+        @include row-basics;
+        @if ($col < $columns) {
+            margin-right: 1%;
+            margin-bottom: 1%;
+        }
+
+    }
+}
+
+@each $breakpoint, $size in $baseSizes {
+     @for $col from 1 through $columns{
+        /* with margin */
+        .w-#{$col}-#{$breakpoint} {
+            @include respond-to($breakpoint) {
+                width: ((100 / $columns) * $col) * 1%;
+
+                @include row-basics;
+            }
+        }
+        /* without margin */
+        .c-#{$col}-#{$breakpoint} {
+            @include respond-to($breakpoint) {
+                width: ((100 / $columns) * $col) * 1%;
+                float: left;
+
+                @include row-basics;
+                @if ($col < $columns) {
+                    margin-right: 1%;
+                }
+                &-set {
+                  margin-right: 0;
+                  margin-bottom: 0;
+                }
+            }
+        }
+        /* hide on viewport */
+        .no-#{$breakpoint} {
+            @include respond-to($breakpoint) {
+                display: none !important;
+            }
+        }
+    }
+    .container {
+      max-width:90%;
+      padding: 0;
+      margin: 0;
+      flex:1;
+    }
+    .container-fluid {
+      min-width: 100%;
+      width: 100%;
+    }
+    .row {
+      flex-direction: row;
+    }
+}

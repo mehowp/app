@@ -1,25 +1,77 @@
-var fs = require('fs');
-var gulp = require('gulp');
-var directory = __dirname + '/gulp-tasks/';
+var gulp = require('gulp'),
+    exec = require('gulp-exec'),
+    fs = require('fs'),
+    nodemon = require('gulp-nodemon'),
+    jade = require('gulp-jade');
+    sourcemaps = require('gulp-sourcemaps'),
+    babel = require('gulp-babel'),
+    concat = require('gulp-concat'),
+    rename = require('gulp-rename'),
+    browserify = require('gulp-browserify'),
+    uglifyjs = require('gulp-uglify'),
+    eslint = require('gulp-eslint');
 
-var files = fs.readdirSync(directory);
-var tasks = [],
-    paths = {
-        javascript: './src/js/**/*.js',
-        templates: './src/templates/**/*.jade',
-        stylesheets: './src/scss/**/*.scss'
-    }
+/* templates */
+gulp.task('jade', function() {
+    return gulp.src('./src/templates/**/*.jade')
+        .pipe(jade({
+            pretty: true
+        })) // pip to jade plugin
+        .pipe(gulp.dest('./public/views')); // tell gulp our output folder
+})
+/* node scripts */
+gulp.task('node-tasks', (cb) => {
+    require(__dirname + '/backend/tasks.js')();
+})
 
-gulp.task('default', function() {
-    files.filter(function(file) {
-        var taskName = file.substring(0, file.indexOf('.'));
-        require(directory + file);
-        if (taskName.indexOf('server')) {
-            gulp.watch(paths[taskName], [taskName]);
-        } else {
-            gulp.start(taskName);
-        }
-    })
-
-
+gulp.task('lint', () => {
+    return gulp.src(['src/js/**/*.js', 'backend/bin/**/*.js'])
+        .pipe(eslint({configFile: 'eslint.json'}))
+        .pipe(eslint.format())
+        .pipe(eslint.failAfterError());
 });
+
+gulp.task('bundle', ['lint'], function() {
+    var opts = {};
+    return gulp.src(['src/js/main.js', 'src/js/**/*.js'])
+        .pipe(sourcemaps.init())
+        .pipe(babel())
+        .pipe(concat('bundle.js'))
+        .pipe(browserify({
+            insertGlobals: true,
+            debug: true
+        }))
+        .pipe(sourcemaps.write('../maps'))
+        // .pipe(minify(opts))
+        .pipe(gulp.dest('./public/src/js'));
+})
+
+gulp.task('min', function() {
+    return gulp.src('./public/src/js/bundle.js')
+        .pipe(uglifyjs().on('error', function(e) {
+            console.log(e);
+        }))
+        .pipe(rename('bundle.min.js'))
+        .pipe(gulp.dest('./public/src/js'));
+})
+
+
+gulp.task('javascript', ['bundle', 'min'])
+
+/* node server */
+gulp.task('start', function() {
+    nodemon({
+        script: 'backend/server.js',
+        ext: 'js',
+        env: {
+            'NODE_ENV': 'development'
+        },
+        tasks: []
+    })
+})
+
+gulp.task('default', ['start'], () => {
+    gulp.watch('./src/scss/**/*.scss', ['node-tasks'])
+    gulp.watch('./src/templates/**/*.jade', ['jade'])
+    gulp.watch('./src/js/**/*.js', ['javascript'])
+})
