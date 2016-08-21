@@ -21,7 +21,7 @@ gulp.task('jade', function() {
 })
 /* node scripts */
 gulp.task('node-tasks', (cb) => {
-    require(__dirname + '/backend/tasks.js')();
+    return require(__dirname + '/backend/tasks.js')();
 })
 
 gulp.task('lint', () => {
@@ -62,16 +62,13 @@ gulp.task('javascript', ['bundle', 'min'])
 gulp.task('start', function() {
     nodemon({
         script: 'backend/server.js',
-        ext: 'js',
+        ext: 'scss js jade',
+        ignore: ["public/*"],
         env: {
             'NODE_ENV': 'development'
         },
-        tasks: []
+        tasks: ['node-tasks', 'jade', 'javascript']
     })
 })
 
-gulp.task('default', ['start'], () => {
-    gulp.watch('./src/scss/**/*.scss', ['node-tasks'])
-    gulp.watch('./src/templates/**/*.jade', ['jade'])
-    gulp.watch('./src/js/**/*.js', ['javascript'])
-})
+gulp.task('default', ['start'])

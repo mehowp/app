@@ -54,7 +54,7 @@ module.exports = () => {
                         fs.writeFileSync(path.min, postResult.css);
                         var end = new Date().getTime();
                         if(end-start){
-                          var sum = (end-start) / 1000;
+                          var sum = (end-start) / 100;
                             console.log(chalk.dim("["+initialized+"] ") +
                                 chalk.cyan(file.input+".scss") + " compiled to " + chalk.green(path.output) +
                                 chalk.white(" ["+ sum.toFixed(2) +"s]"));
