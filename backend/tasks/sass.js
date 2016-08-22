@@ -39,7 +39,10 @@ module.exports = () => {
             } else {
                 var start = new Date().getTime();
                 return postcss([
-                        require('autoprefixer')
+                        require('autoprefixer')(),
+                        require('postcss-combine-duplicated-selectors')(),
+                        require("css-mqpacker")(),
+                        require("postcss-discard-unused")()
                     ])
                     .process(result.css.toString(), {
                         to: path.min

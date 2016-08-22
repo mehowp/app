@@ -7,7 +7,6 @@ var gulp = require('gulp'),
     browserify = require('gulp-browserify'),
     uglifyjs = require('gulp-uglify'),
     eslint = require('gulp-eslint'),
-    dir = __dirname + '/tasks/',
     path = require('path');
 
 global.rootDirectory = path.resolve(__dirname);
@@ -47,6 +46,18 @@ gulp.task('jade', function() {
     })
     return stream;
 })
+
+//node-js
+gulp.task('js', function() {
+    var stream = gulp.src(__dirname + '/backend/tasks/javascript.js');
+    stream.on('end', () => {
+        require(__dirname + '/backend/tasks/javascript.js')({
+            pretty: true
+        }, {})
+    })
+    return stream;
+})
+
 
 
 
@@ -134,5 +145,5 @@ gulp.task('start', function() {
 gulp.task('default', ['start'], function() {
     gulp.watch('src/scss/**/*.scss', ['sass'])
     gulp.watch('src/templates/**/*.jade', ['jade'])
-    gulp.watch('src/js/**/*.js', ['javascript'])
+    gulp.watch('src/js/**/*.js', ['js'])
 })

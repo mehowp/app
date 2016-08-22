@@ -14,6 +14,7 @@ module.exports = (options, locals) => {
             fs.writeFileSync(path, contents, cb);
         });
     }
+    
     recursive(assets.jade, function(err, files) {
         if (err) {
             console.log(err);
