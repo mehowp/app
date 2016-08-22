@@ -1,11 +1,8 @@
 module.exports = (sources) => {
     var sass = require('node-sass');
-    var fs = require('fs');
     var chalk = require('chalk');
     var gulp = require('gulp');
-    var fs = require("fs");
     var postcss = require('postcss');
-    var gutil = require('gulp-util');
 
     var compiler = this;
 
@@ -23,7 +20,7 @@ module.exports = (sources) => {
             sourceMap: path.maps,
             outputStyle: 'compressed'
         }, function(error, result) { // node-style callback from v3.0.0 onwards
-            try {
+            if(!error) {
                 var start = new Date().getTime();
                 return postcss([
                         require('autoprefixer')(),
@@ -44,7 +41,7 @@ module.exports = (sources) => {
                                         chalk.cyan(file.input + ".scss") + " compiled to " + chalk.green(path.output));
 
                     });
-            }catch(error){
+            }else{
 
                 compiler.on('error', ()=>{
                     console.log(chalk.red("error has occuried while compiling sass"));

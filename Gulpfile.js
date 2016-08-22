@@ -6,10 +6,16 @@ var gulp = require('gulp'),
     rename = require('gulp-rename'),
     browserify = require('gulp-browserify'),
     uglifyjs = require('gulp-uglify'),
-    eslint = require('gulp-eslint'),
-    path = require('path');
+    eslint = require('gulp-eslint')
 
+
+
+global.path = require('path');
+global.fs = require('fs');
+global.recursive = require('recursive-readdir');
+global.mkdirp = require('mkdirp');
 global.rootDirectory = path.resolve(__dirname);
+global.getDirName = require('path').dirname;
 global.assets = {
     css: rootDirectory + '/src/scss/',
     js: rootDirectory + '/src/js/',
@@ -22,35 +28,36 @@ global.assets = {
     maps: rootDirectory + '/public/src/maps/'
 }
 
+global.writeFile = (path, contents, cb) => {
+    mkdirp(getDirName(path), function(err) {
+        if (err) return cb(err);
+
+        fs.writeFileSync(path, contents, cb);
+    });
+}
 
 
 //node-sass
 gulp.task('sass', (cb) => {
-    var stream = gulp.src(__dirname + '/backend/tasks/sass.js');
+
+var processcss = [
+                    {input: 'shared/_atomic', output: 'supreme'}, 
+                    {input: 'admin', output: 'admin'}, 
+                    {input: 'main', output: 'main'}, 
+                    {input: 'reset',output: 'reset'}
+                ];
+
+    var stream = gulp.src('src/scss/**/*.scss');
     stream.on('end', () => {
-        require(__dirname + '/backend/tasks/sass.js')([{
-            input: 'shared/_atomic',
-            output: 'supreme'
-        }, {
-            input: 'admin',
-            output: 'admin'
-        }, {
-            input: 'main',
-            output: 'main'
-        }, {
-            input: 'reset',
-            output: 'reset'
-        }])
+        require(__dirname + '/backend/tasks/sass.js')(processcss)
     })
 
     return stream;
 })
 
-
-
-//node-jade
+//jade
 gulp.task('jade', function() {
-    var stream = gulp.src(__dirname + '/backend/tasks/jade.js');
+    var stream = gulp.src('src/templates/**/*.jade');
     stream.on('end', () => {
         require(__dirname + '/backend/tasks/jade.js')({
             pretty: true
@@ -69,15 +76,6 @@ gulp.task('js', function() {
     })
     return stream;
 })
-
-
-
-
-
-
-
-
-
 
 gulp.task('lint', () => {
     return gulp.src(['src/js/**/*.js', 'backend/bin/**/*.js'])
@@ -112,26 +110,7 @@ gulp.task('min', function() {
         .pipe(gulp.dest('./public/src/js'));
 })
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 gulp.task('javascript', ['bundle', 'min'])
-
-
-
-
 
 /* node server */
 gulp.task('start', function() {
