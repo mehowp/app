@@ -14,12 +14,11 @@ module.exports = (options, locals) => {
             fs.writeFileSync(path, contents, cb);
         });
     }
+    var compiler = this;
     
     recursive(assets.jade, function(err, files) {
-        if (err) {
-            console.log(err);
-            return;
-        } else {
+
+        try {
 
             files.forEach(filepath => {
                 result = jade.renderFile(filepath, merge(options, locals));
@@ -27,6 +26,11 @@ module.exports = (options, locals) => {
 
                 writeFile(file, result);
             });
+        } catch(err){
+                 compiler.on('error', () => {
+                    console.log(chalk.red("error has occuried while compiling jade"));
+                    console.log(error);
+                });
         }
     });
 }

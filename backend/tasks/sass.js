@@ -1,27 +1,15 @@
-module.exports = () => {
+module.exports = (sources) => {
     var sass = require('node-sass');
     var fs = require('fs');
     var chalk = require('chalk');
     var gulp = require('gulp');
     var fs = require("fs");
     var postcss = require('postcss');
+    var gutil = require('gulp-util');
 
+    var compiler = this;
 
-    var scssFiles = [{
-        input: 'shared/_atomic',
-        output: 'supreme'
-    }, {
-        input: 'admin',
-        output: 'admin'
-    }, {
-        input: 'main',
-        output: 'main'
-    }, {
-        input: 'reset',
-        output: 'reset'
-    }];
-
-    return scssFiles.map(file => {
+    return sources.map(file => {
         var start = new Date();
         var path = {
             input: assets.css + file.input + '.scss',
@@ -35,9 +23,7 @@ module.exports = () => {
             sourceMap: path.maps,
             outputStyle: 'compressed'
         }, function(error, result) { // node-style callback from v3.0.0 onwards
-            if (error) {
-                console.log(error);
-            } else {
+            try {
                 var start = new Date().getTime();
                 return postcss([
                         require('autoprefixer')(),
@@ -51,12 +37,19 @@ module.exports = () => {
                     .then(function(postResult) {
                         fs.writeFileSync(path.min, postResult.css);
                         var end = new Date().getTime();
-                        if (end - start) {
+
                             var sum = ((end - start) / 100);
+
                             console.log(chalk.dim("[" + initialized + "] ") +
-                                chalk.cyan(file.input + ".scss") + " compiled to " + chalk.green(path.output));
-                        }
+                                        chalk.cyan(file.input + ".scss") + " compiled to " + chalk.green(path.output));
+
                     });
+            }catch(error){
+
+                compiler.on('error', ()=>{
+                    console.log(chalk.red("error has occuried while compiling sass"));
+                    console.log(error);
+                });
             }
         });
 

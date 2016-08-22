@@ -28,7 +28,19 @@ global.assets = {
 gulp.task('sass', (cb) => {
     var stream = gulp.src(__dirname + '/backend/tasks/sass.js');
     stream.on('end', () => {
-        require(__dirname + '/backend/tasks/sass.js')()
+        require(__dirname + '/backend/tasks/sass.js')([{
+            input: 'shared/_atomic',
+            output: 'supreme'
+        }, {
+            input: 'admin',
+            output: 'admin'
+        }, {
+            input: 'main',
+            output: 'main'
+        }, {
+            input: 'reset',
+            output: 'reset'
+        }])
     })
 
     return stream;
