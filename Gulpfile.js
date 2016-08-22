@@ -1,32 +1,66 @@
 var gulp = require('gulp'),
-    exec = require('gulp-exec'),
-    fs = require('fs'),
     nodemon = require('gulp-nodemon'),
-    jade = require('gulp-jade');
     sourcemaps = require('gulp-sourcemaps'),
     babel = require('gulp-babel'),
     concat = require('gulp-concat'),
     rename = require('gulp-rename'),
     browserify = require('gulp-browserify'),
     uglifyjs = require('gulp-uglify'),
-    eslint = require('gulp-eslint');
+    eslint = require('gulp-eslint'),
+    dir = __dirname + '/tasks/',
+    path = require('path');
 
-/* templates */
+global.rootDirectory = path.resolve(__dirname);
+global.assets = {
+    css: rootDirectory + '/src/scss/',
+    js: rootDirectory + '/src/js/',
+    jade: rootDirectory + '/src/templates/',
+    output: {
+        css: rootDirectory + '/public/src/css/',
+        js: rootDirectory + '/public/src/js/',
+        views: rootDirectory + '/public/views/',
+    },
+    maps: rootDirectory + '/public/src/maps/'
+}
+
+
+
+//node-sass
+gulp.task('sass', (cb) => {
+    var stream = gulp.src(__dirname + '/backend/tasks/sass.js');
+    stream.on('end', () => {
+        require(__dirname + '/backend/tasks/sass.js')()
+    })
+
+    return stream;
+})
+
+
+
+//node-jade
 gulp.task('jade', function() {
-    return gulp.src('./src/templates/**/*.jade')
-        .pipe(jade({
+    var stream = gulp.src(__dirname + '/backend/tasks/jade.js');
+    stream.on('end', () => {
+        require(__dirname + '/backend/tasks/jade.js')({
             pretty: true
-        })) // pip to jade plugin
-        .pipe(gulp.dest('./public/views')); // tell gulp our output folder
+        }, {})
+    })
+    return stream;
 })
-/* node scripts */
-gulp.task('node-tasks', (cb) => {
-    return require(__dirname + '/backend/tasks.js')();
-})
+
+
+
+
+
+
+
+
 
 gulp.task('lint', () => {
     return gulp.src(['src/js/**/*.js', 'backend/bin/**/*.js'])
-        .pipe(eslint({configFile: 'eslint.json'}))
+        .pipe(eslint({
+            configFile: 'eslint.json'
+        }))
         .pipe(eslint.format())
         .pipe(eslint.failAfterError());
 });
@@ -56,19 +90,49 @@ gulp.task('min', function() {
 })
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 gulp.task('javascript', ['bundle', 'min'])
+
+
+
+
 
 /* node server */
 gulp.task('start', function() {
     nodemon({
         script: 'backend/server.js',
-        ext: 'scss js jade',
-        ignore: ["public/*"],
+        ext: 'js',
+        ignore: ["public/*", "src/*"],
         env: {
             'NODE_ENV': 'development'
         },
-        tasks: ['node-tasks', 'jade', 'javascript']
+        tasks: []
     })
 })
 
-gulp.task('default', ['start'])
+
+
+
+
+
+
+
+
+gulp.task('default', ['start'], function() {
+    gulp.watch('src/scss/**/*.scss', ['sass'])
+    gulp.watch('src/templates/**/*.jade', ['jade'])
+    gulp.watch('src/js/**/*.js', ['javascript'])
+})

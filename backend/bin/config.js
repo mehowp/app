@@ -1,5 +1,5 @@
 module.exports = {
-    port: '3009',
+    port: '3000',
     ip: "0.0.0.0",
     templates: './public/views',
     assets: {

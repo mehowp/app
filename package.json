@@ -5,8 +5,8 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "stylesheets": "node backend/tasks/sass.js",
-    "server": "node backend/tasks/server.js"
+    "server": "node backend/tasks/server.js",
+    "start": "gulp",
   },
   "devDependencies": {
     "angular": "^1.5.8",
@@ -28,8 +28,9 @@
     "gulp": "^3.9.1",
     "gulp-jade": "^1.1.0",
     "gulp-nodemon": "^2.1.0",
-    "gulp-run": "^1.7.1",
+    "jade": "^1.11.0",
     "jquery": "^3.1.0",
+    "merge": "^1.2.0",
     "method-override": "^2.3.6",
     "morgan": "^1.7.0",
     "node-sass": "^3.8.0",
@@ -37,6 +38,7 @@
     "postcss-nested": "^1.0.0",
     "postcss-scss": "^0.1.9",
     "precss": "^1.4.0",
+    "recursive-readdir": "^2.0.0",
     "socket.io": "^1.4.8",
     "watchify": "^3.7.0"
   },
