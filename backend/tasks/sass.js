@@ -32,7 +32,8 @@ module.exports = () => {
         return sass.render({
             file: path.input,
             outFile: path.output,
-            sourceMap: path.maps
+            sourceMap: path.maps,
+            outputStyle: 'compressed'
         }, function(error, result) { // node-style callback from v3.0.0 onwards
             if (error) {
                 console.log(error);
