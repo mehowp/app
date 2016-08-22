@@ -7,9 +7,10 @@
  - Sequelize (MySQL)
 
 #Frontend side
-- AngularJS and css framework with superpowers
+- AngularJS
 - PostCSS
 - SASS
+- JADE with superpower-classes
 
 #Task runners
 - Compiled ES6 with concating all files inside src/js
