@@ -6,7 +6,7 @@ var gulp = require('gulp'),
     rename = require('gulp-rename'),
     browserify = require('gulp-browserify'),
     uglifyjs = require('gulp-uglify'),
-    eslint = require('gulp-eslint')
+    eslint = require('gulp-eslint');
 
     global.path = require('path');
     global.fs = require('fs');

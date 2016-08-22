@@ -31,7 +31,7 @@ module.exports = (sources) => {
                         to: path.min
                     })
                     .then(function(postResult) {
-                        fs.writeFileSync(path.min, postResult.css);
+                        writeFile(path.min, postResult.css);
                         var end = new Date().getTime();
 
                             var sum = ((end - start) / 100);
