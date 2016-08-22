@@ -38,7 +38,7 @@ var gulp = require('gulp'),
 gulp.task('sass', (cb) => {
 
 var processcss = [
-                    {input: 'shared/_atomic', output: 'supreme'}, 
+                    {input: 'shared/_atomic', output: 'kenny'}, 
                     {input: 'admin', output: 'admin'}, 
                     {input: 'main', output: 'main'}, 
                     {input: 'reset',output: 'reset'}
