@@ -1,7 +1,6 @@
 module.exports = (sources) => {
     var sass = require('node-sass');
     var chalk = require('chalk');
-    var gulp = require('gulp');
     var postcss = require('postcss');
 
     var compiler = this;
