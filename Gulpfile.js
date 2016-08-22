@@ -8,34 +8,31 @@ var gulp = require('gulp'),
     uglifyjs = require('gulp-uglify'),
     eslint = require('gulp-eslint')
 
+    global.path = require('path');
+    global.fs = require('fs');
+    global.recursive = require('recursive-readdir');
+    global.mkdirp = require('mkdirp');
+    global.rootDirectory = path.resolve(__dirname);
+    global.getDirName = require('path').dirname;
+    global.assets = {
+        css: rootDirectory + '/src/scss/',
+        js: rootDirectory + '/src/js/',
+        jade: rootDirectory + '/src/templates/',
+        output: {
+            css: rootDirectory + '/public/src/css/',
+            js: rootDirectory + '/public/src/js/',
+            views: rootDirectory + '/public/views/',
+        },
+        maps: rootDirectory + '/public/src/maps/'
+    }
 
+    global.writeFile = (path, contents, cb) => {
+        mkdirp(getDirName(path), function(err) {
+            if (err) return cb(err);
 
-global.path = require('path');
-global.fs = require('fs');
-global.recursive = require('recursive-readdir');
-global.mkdirp = require('mkdirp');
-global.rootDirectory = path.resolve(__dirname);
-global.getDirName = require('path').dirname;
-global.assets = {
-    css: rootDirectory + '/src/scss/',
-    js: rootDirectory + '/src/js/',
-    jade: rootDirectory + '/src/templates/',
-    output: {
-        css: rootDirectory + '/public/src/css/',
-        js: rootDirectory + '/public/src/js/',
-        views: rootDirectory + '/public/views/',
-    },
-    maps: rootDirectory + '/public/src/maps/'
-}
-
-global.writeFile = (path, contents, cb) => {
-    mkdirp(getDirName(path), function(err) {
-        if (err) return cb(err);
-
-        fs.writeFileSync(path, contents, cb);
-    });
-}
-
+            fs.writeFileSync(path, contents, cb);
+        });
+    }   
 
 //node-sass
 gulp.task('sass', (cb) => {
