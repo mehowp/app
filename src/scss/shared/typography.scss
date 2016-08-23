@@ -15,7 +15,7 @@
 @for $value from 1 through 50 {
                   .fs-#{$value} {
                         $baseFontSize: calc(#{$value} / 10);
-                        $finalFontSize: calc(#{$baseFontSize} *  {map-get($size, l));
+                        $finalFontSize: calc(#{$baseFontSize} *  {map-get($fontSizes, x));
                         font-size: $finalFontSize;
 
                     @each $breakpoint, $size in $fontSizes {
@@ -30,7 +30,7 @@
                   }
                   .lh-#{$value} {
                         $baseFontSize: calc(#{$value} / 10);
-                        $finalFontSize: calc(#{$baseFontSize} *  {map-get($size, l));
+                        $finalFontSize: calc(#{$baseFontSize} *  {map-get($fontSizes, x));
                         font-size: $finalFontSize;
 
                     @each $breakpoint, $size in $fontSizes {
