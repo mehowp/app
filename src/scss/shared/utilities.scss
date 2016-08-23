@@ -1,31 +1,36 @@
-@for $value from 1 to 50 {
-     @each $breakpoint, $size in $baseSizes{
-        @each $aliasProp, $propValue in $properties {
-             @each $aliasFrom, $fromValue in $directions{
-                @if $aliasFrom == a {
-                    .#{$aliasProp}-#{$aliasFrom}-#{$value} {
-                        @include respond-to($breakpoint) {
+@for $value from 0 to 50 {
+    @each $property, $propValue in $properties {
+        @each $direction, $directionValue in $directions {
+
+            $size: map-get($baseSizes, l);
+            $final: calc((#{$value} * #{$size}) * 2);
+
+                .#{$property}-#{$direction}-#{$value} {
+                    @if $direction != a {
+                        #{$propValue}-#{$directionValue}: $final;
+                        @each $breakpoint, $size in $baseSizes {
                             $final: calc((#{$value} * #{$size}) * 2);
-                            #{$propValue}: $final !important;
+                            &-#{$breakpoint} {
+                                 @include respond-to($breakpoint) {
+                                   #{$propValue}-#{$directionValue}: $final;
+                                 }   
+                            }
                         }
                     }
-                }
-                @if $aliasFrom != a {
-                    .#{$aliasProp}-#{$aliasFrom}-#{$value} {
-                        $final: calc((#{$value} * #{$size}) * 2);
-                        @include respond-to($breakpoint) {
+                    @if $direction == a {
+                        #{$propValue}: $final;
+                        @each $breakpoint, $size in $baseSizes {
                             $final: calc((#{$value} * #{$size}) * 2);
-                            #{$propValue}-#{$fromValue}: $final !important;
-                        }
-                        &-#{$breakpoint} {
-                            @include respond-to($breakpoint) {
-                                $final: calc((#{$value} * #{$size}) * 2);
-                                #{$propValue}-#{$fromValue}: $final !important;
+                            &-#{$breakpoint} {
+                                 @include respond-to($breakpoint) {
+                                   #{$propValue}: $final;
+                                 }   
                             }
                         }
                     }
                 }
-            }
+
+            
         }
     }
 }

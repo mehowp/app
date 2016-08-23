@@ -3,12 +3,15 @@
 }
 
 @mixin row-basics {
+  display: flex;
+  box-sizing: border-box;
 }
 
 @for $col from 1 through $columns {
     /* without margin */
     .w-#{$col} {
-        width: ((100 / $columns) * $col) * 1%;
+                flex-basis: ((100 / $columns) * $col) * 1%;
+                max-width: ((100 / $columns) * $col) * 1%;
         @include row-basics;
 
     }
@@ -29,7 +32,8 @@
         /* with margin */
         .w-#{$col}-#{$breakpoint} {
             @include respond-to($breakpoint) {
-                width: ((100 / $columns) * $col) * 1%;
+                flex-basis: ((100 / $columns) * $col) * 1%;
+                max-width: ((100 / $columns) * $col) * 1%;
 
                 @include row-basics;
             }
@@ -50,13 +54,46 @@
                 }
             }
         }
-        /* hide on viewport */
+    }
+
         .no-#{$breakpoint} {
             @include respond-to($breakpoint) {
                 display: none !important;
             }
         }
-    }
+
+        .end-#{$breakpoint} {
+          justify-content: flex-end;
+          text-align: end;
+        }
+
+        .top-#{$breakpoint} {
+          align-items: flex-start;
+        }
+
+        .middle-#{$breakpoint} {
+          align-items: center;
+        }
+
+        .bottom-#{$breakpoint} {
+          align-items: flex-end;
+        }
+
+        .around-#{$breakpoint} {
+          justify-content: space-around;
+        }
+
+        .between-#{$breakpoint} {
+          justify-content: space-between;
+        }
+
+        .first-#{$breakpoint} {
+          order: -1;
+        }
+
+        .last-#{$breakpoint} {
+          order: 1;
+        }
 }
 
 .container {
@@ -69,10 +106,12 @@
 }
 
 .container-fluid {
-  min-width: 100%;
-  width: 100%;
+  padding-left:0.5%;
+  padding-right:0.5%;
+  display:flex;
 }
 
 .row {
-  flex-direction: row;
+  flex-flow: row wrap;
+  display: flex;
 }

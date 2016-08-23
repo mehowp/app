@@ -13,12 +13,12 @@
 }
 
 @for $value from 1 through 50 {
-@each $breakpoint, $size in $fontSizes {
                   .fs-#{$value} {
                         $baseFontSize: calc(#{$value} / 10);
-                        $finalFontSize: calc(#{$baseFontSize} * #{$size});
+                        $finalFontSize: calc(#{$baseFontSize} *  {map-get($size, l));
                         font-size: $finalFontSize;
 
+                    @each $breakpoint, $size in $fontSizes {
                       &-#{$breakpoint} {
                         @include respond-to($breakpoint) {
                           $baseFontSize: calc(#{$value} / 10);
@@ -26,20 +26,21 @@
                           font-size: $finalFontSize !important;
                         }
                       }
+                    }
                   }
-
                   .lh-#{$value} {
-                        $baseLineHeight: calc(#{$value} / 10);
-                        $finalLineHeight: calc(#{$baseLineHeight} * #{$size});
-                        line-height: $finalLineHeight;
+                        $baseFontSize: calc(#{$value} / 10);
+                        $finalFontSize: calc(#{$baseFontSize} *  {map-get($size, l));
+                        font-size: $finalFontSize;
 
+                    @each $breakpoint, $size in $fontSizes {
                       &-#{$breakpoint} {
                         @include respond-to($breakpoint) {
-                          $baseLineHeight: calc(#{$value} / 10);
-                          $finalLineHeight: calc(#{$baseLineHeight} * #{$size});
-                          line-height: $finalLineHeight !important;
+                          $baseFontSize: calc(#{$value} / 10);
+                          $finalFontSize: calc(#{$baseFontSize} * #{$size});
+                          font-size: $finalFontSize !important;
                         }
                       }
+                    }
                   }
-    }
 }

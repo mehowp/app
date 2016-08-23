@@ -20,10 +20,10 @@ $break-extra: 1280px;
 
 /*margins, paddings, fonts */
 $properties: (m: 'margin', p: 'padding', b: 'border');
-$directions: (t: 'top', b: 'bottom', l: 'left', r: 'right', a: 'all');
+$directions: (t: 'top', b: 'bottom', l: 'left', r: 'right', a: false);
 
-$baseSizes: ( s: 1.5vw, m: 0.7vw, l: 5px, x: 5px);
-$fontSizes: ( s: 4.7vw, m: 2.08vw, l: 16px, x: 16px );
+$baseSizes: ( s: 1.5vw, m: 0.7vw, l: 0.25vw, x: 0.25vw );
+$fontSizes: ( s: 4.7vw, m: 2.08vw, l: 1.4vw, x: 1.4vw );
 $range: (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
 $fwRange: (100, 200, 300, 400, 500, 600, 700, 800, 900);
 

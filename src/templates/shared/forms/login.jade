@@ -1,2 +1,6 @@
-p.
-  login form
+form(ng-init="login = {}")
+	.row
+		.w-6.w-12-s
+			input(type="email" required="" name="email" ng-model="login.email" placeholder="E-mail")
+		.w-6.w-12-s
+			input(type="password" required="" name="password" ng-model="login.email")

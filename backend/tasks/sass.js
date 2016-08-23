@@ -19,7 +19,7 @@ module.exports = (sources) => {
             sourceMap: path.maps,
             outputStyle: 'compressed'
         }, function(error, result) { // node-style callback from v3.0.0 onwards
-            if(!error) {
+            if (!error) {
                 var start = new Date().getTime();
                 return postcss([
                         require('autoprefixer')(),
@@ -34,18 +34,16 @@ module.exports = (sources) => {
                         writeFile(path.min, postResult.css);
                         var end = new Date().getTime();
 
-                            var sum = ((end - start) / 100);
+                        var sum = ((end - start) / 100);
 
-                            console.log(chalk.dim("[" + initialized + "] ") +
-                                        chalk.cyan(file.input + ".scss") + " compiled to " + chalk.green(path.output));
+                        console.log(chalk.dim("[" + initialized + "] ") +
+                            chalk.cyan(file.input + ".scss") + " compiled to " + chalk.green(path.output));
 
                     });
-            }else{
+            } else {
 
-                compiler.on('error', ()=>{
-                    console.log(chalk.red("error has occuried while compiling sass"));
-                    console.log(error);
-                });
+                console.log(chalk.red("error has occuried while compiling sass"));
+                console.log(error);
             }
         });
 
